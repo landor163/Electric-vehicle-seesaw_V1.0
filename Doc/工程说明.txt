@@ -1,0 +1,279 @@
+/********************/
+
+陀螺仪三轴角度具体情况
+
+左右摇头 偏航角 Yaw
+上下抬头 俯仰角 Pitch
+高低动肩 横滚角 Roll
+
+/********************/
+
+C语言漏洞补一下，结构体和指针
+
+/********************/
+
+位置式PID（Position）是当前系统的实际位置，与你想要达到的预期位置的偏差，进行PID控制
+
+误差=目标值-状态值
+
+比例P 误差
+积分I 误差的累加
+微分D 这次误差-上次误差
+
+因为有积分的作用，当前输出的值与之前所有的状态值都有关，一旦目前的状态值出现大的问题，对系统的控制影响非常大
+输出值达到最大和最小的时候，要停止积分的作用（意味着状态值出现极端，需要剥离积分）
+要有积分限幅和输出限幅
+位置式直接使用PD，不用I，I太惨了
+位置式适用于执行机构不带积分部件的控制
+比如舵机，平衡小车的直立，温控系统
+
+typedef struct PID
+{ 
+  float P,I,D,limit;
+}PID;
+ 
+typedef struct Error
+{
+  float Current_Error;//当前误差
+  float Last_Error;//上一次误差
+  float Previous_Error;//上上次误差
+}Error;
+ 
+/*! 
+ *  @brief      位置式PID
+ *  @since      v1.0
+ *  *sptr ：误差参数
+ *  *pid:  PID参数
+ *  NowPlace：当前位置
+ *  Point：   预期位置  
+ */
+ 
+// 位置式PID控制
+float PID_Realize(Error *sptr,PID *pid, int32 NowPlace, float Point)
+{
+ 
+	int32 iError,	// 当前误差
+		 Realize;   //实际输出	
+ 
+	iError = Point - NowPlace;	// 计算当前误差
+	sptr->Current_Error += pid->I * iError;	// 误差积分
+      sptr->Current_Error = sptr->Current_Error > pid->limit?pid->limit:sptr->Current_Error;//积分限幅
+      sptr->Current_Error = sptr->Current_Error <-pid->limit?-pid->limit:sptr->Current_Error;
+	Realize = pid->P * iError       //比例P
+            + sptr->Current_Error   //积分I
+			+ pid->D * (iError - sptr->Last_Error);  //微分D
+	sptr->Last_Error = iError;		  	// 更新上次误差
+	return Realize;	// 返回实际值
+}
+
+/********************/
+
+增量式PID（Increment）
+
+比例P   这次误差-上次误差
+积分I   误差
+微分D   这次误差-2*上次误差+上上次误差
+
+增量式PID根据公式可以很好地看出，一旦确定了 KP、TI、TD，只要使用前后三次测量值的偏差，即可由公式求出控制增量
+而得出的控制量▲u(k)对应的是近几次位置误差的增量，而不是对应与实际位置的偏差没有误差累加
+也就是说，增量式PID中不需要累加。控制增量Δu(k)的确定仅与最近3次的采样值有关，容易通过加权处理获得比较好的控制效果，并且在系统发生问题时，增量式不会严重影响系统的工作
+总结：增量型 PID，是对位置型 PID 取增量，这时控制器输出的是相邻两次采样时刻所计算的位置值之差，得到的结果是增量，即在上一次的控制量的基础上需要增加（负值意味减少）控制量。
+
+typedef struct PID
+{ 
+  float P,I,D,limit;
+}PID;
+typedef struct Error
+{
+  float Current_Error;//当前误差
+  float Last_Error;//上一次误差
+  float Previous_Error;//上上次误差
+}Error;
+ 
+/*! 
+ *  @brief      增量式PID
+ *  @since      v1.0
+ *  *sptr ：误差参数
+ *  *pid:  PID参数
+ *  NowPlace：实际值
+ *  Point：   期望值
+ */
+// 增量式PID电机控制
+int32 PID_Increase(Error *sptr, PID *pid, int32 NowPlace, int32 Point)
+{
+ 
+	int32 iError,	//当前误差
+		Increase;	//最后得出的实际增量
+ 
+	iError = Point - NowPlace;	// 计算当前误差
+ 
+	Increase =  pid->P * (iError - sptr->Last_Error)   //比例P
+			  + pid->I * iError      //积分I
+			  + pid->D * (iError - 2 * sptr->Last_Error + sptr->Previous_Error);  //微分D
+	
+	sptr->Previous_Error = sptr->Last_Error;	// 更新前次误差
+	sptr->Last_Error = iError;		  	// 更新上次误差
+	
+	return Increase;	// 返回增量
+}
+
+/********************/
+
+增量式与位置式区别：
+1增量式算法不需要做累加，控制量增量的确定仅与最近几次偏差采样值有关，计算误差对控制量计算的影响较小。而位置式算法要用到过去偏差的累加值，容易产生较大的累加误差。
+
+2增量式算法得出的是控制量的增量，例如在阀门控制中，只输出阀门开度的变化部分，误动作 影响小，必要时还可通过逻辑判断限制或禁止本次输出，不会严重影响系统的工作。
+而位置式的输出直接对应对象的输出，因此对系统影响较大。
+
+3增量式PID控制输出的是控制量增量，并无积分作用，因此该方法适用于执行机构带积分部件的对象，如步进电机等，而位置式PID适用于执行机构不带积分部件的对象，如电液伺服阀。
+
+4在进行PID控制时，位置式PID需要有积分限幅和输出限幅，而增量式PID只需输出限幅
+
+位置式PID优缺点：
+优点：
+①位置式PID是一种非递推式算法，可直接控制执行机构（如平衡小车），u(k)的值和执行机构的实际位置（如小车当前角度）是一一对应的，因此在执行机构不带积分部件的对象中可以很好应用
+
+缺点：
+①每次输出均与过去的状态有关，计算时要对e(k)进行累加，运算工作量大。
+
+增量式PID优缺点：
+优点：
+①误动作时影响小，必要时可用逻辑判断的方法去掉出错数据。
+②手动/自动切换时冲击小，便于实现无扰动切换。当计算机故障时，仍能保持原值。
+③算式中不需要累加。控制增量Δu(k)的确定仅与最近3次的采样值有关。
+
+
+缺点：
+①积分截断效应大，有稳态误差；
+
+②溢出的影响大。有的被控对象用增量式则不太好；
+
+/********************/
+
+主板焊接顺序
+洞洞板找中，用小板子；最中间的位置安置好主控的位置【本质上是焊接排母】
+供电先行，直接用供电模块，留好正负输入的位置，正极接开关
+稳到3v3加个发光二极管，设置好跳冒位置
+主控有电的情况下，直接让车动起来最好
+蜂鸣器，先焊接上去，完了测试一下GPIO引脚的输出。
+接下来是L298N，一个好像就够用了
+MPU6050飞线吧，安置在小车最中间的偏下的板子上
+巡线模块也得加
+
+
+#include "bsp_Car_Oper.h"
+#include "bsp_em_gpio.h"
+#include "bsp_Find_Num.h"
+#include "bsp_usart.h"
+#include "bsp_SysTick.h"
+
+
+int LED_1=1,LED_2=1,LED_3=1,LED_4=1,LED_5=1,i=0,status=0;
+static int Resources=1;
+
+
+ void Follow_line()//巡线
+{
+//车上红灯亮为1，灭为0;
+//不踩黑线红(1)，踩黑线灭(0);
+	LED_1=LED_1_out;//A
+	LED_2=LED_2_out;//A
+	LED_3=LED_3_out;//B
+	LED_4=LED_4_out;//A
+	LED_5=LED_5_out;//B
+
+
+	if((LED_1==1)&(LED_5==1))//2、3、4全部压线
+	{
+		
+		Car_Fore(Car_Speed_Str);//直行
+		status=1;
+		
+	}
+
+	if((LED_1==1)&(LED_3==0)&(LED_5==0))//2丢线了，向左转一下
+	{
+		
+		Car_CLOCKWISE(Car_Speed_Turn+20);//向左转
+		status=2;
+	}
+
+	if((LED_1==0)&(LED_3==0)&(LED_5==1))//4丢线了，向右转一下
+	{
+		Car_ANTICLOCKWISE(Car_Speed_Turn);//向右转
+		
+		status=3;
+	}
+	//printf("LED_1=%d LED_2=%d LED_3=%d LED_4=%d LED_5=%d\n",LED_1,LED_2,LED_3,LED_4,LED_5);
+}
+
+
+
+
+void Identify()//模式识别
+{
+//	if((LED_1==0)&(LED_2==0)&(LED_3==0)&(LED_4==0)&(LED_5==0)&(Resources==6))//上坡
+//	{
+//		status=6;
+//		Car_Fore(80);//直行通过
+//		SysTick_Delay_Ms(4000);
+//		Resources=7;
+//	}
+	
+	if((LED_1==0)&(LED_2==0)&(LED_3==0)&(LED_4==0)&(LED_5==0)&(Resources==5))//第三个重生点
+	{
+		status=6;
+		Car_Fore(30);//直行通过
+		SysTick_Delay_Ms(1500);
+		Resources=6;
+	}
+	
+	if((LED_1==0)&(LED_2==0)&(LED_3==0)&(LED_4==0)&(LED_5==0)&(Resources==4))//Z_2
+	{
+		status=6;
+		Car_Fore(30);
+		SysTick_Delay_Ms(300);
+		Car_ANTICLOCKWISE(Car_Speed_Turn);//右转
+		SysTick_Delay_Ms(650);
+		Resources=5;
+	}
+	
+	if((LED_1==0)&(LED_2==0)&(LED_3==0)&(LED_4==0)&(LED_5==0)&(Resources==3))//Z_1
+	{
+		status=6;
+		Car_CLOCKWISE(Car_Speed_Turn);//左转
+		SysTick_Delay_Ms(1700);
+		Resources=4;
+	}
+	
+	if((LED_1==0)&(LED_2==0)&(LED_3==0)&(LED_4==0)&(LED_5==0)&(Resources==2))//第二个重生点
+	{
+		status=6;
+		Car_Fore(30);//直行通过
+		SysTick_Delay_Ms(1500);
+		Resources=3;
+	}
+	
+	if((LED_1==0)&(LED_2==0)&(LED_3==0)&(LED_4==0)&(LED_5==0)&(Resources==1))//第一个重生点
+	{
+		status=5;
+		Car_Fore(30);//直行通过
+		SysTick_Delay_Ms(1700);
+		Resources=2;
+	}
+	
+	if((LED_1==0)&(LED_2==0)&(LED_3==0)&(LED_4==0)&(LED_5==0)&(Resources==0))//丁字路口
+	{
+		status=4;
+		Car_Fore(30);//直行一会
+		SysTick_Delay_Ms(400);
+		Car_ANTICLOCKWISE(50);//左转一会
+		SysTick_Delay_Ms(900);
+		Car_Fore(30);//再直行一会
+		SysTick_Delay_Ms(1000);
+		Resources=1;
+	}
+	
+	printf("status=%d Resources=%d\n",status,Resources);
+}
+
