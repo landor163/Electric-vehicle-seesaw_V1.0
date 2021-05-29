@@ -11,13 +11,6 @@
 
 
 /*
-左47右50简单为直线
-
-||或
-&&与
-
-涉及标志位赋值的，判定条件就要加上上一个标志位的情况
-
 调试理想环境要绝对的理想，不要自己骗自己
 
 压线为1，不压为0
@@ -35,21 +28,26 @@ void Follow_line()
 	mid_l=LED_2_out;
 	mid_r=LED_3_out;
 	right=LED_4_out;
-	if((flag!=1)&(mid_l==1)&(right==0))//右偏
+
+	if((mid_l==1)&(right==0))//右偏
 	{
-		states=1;//左慢右快
+		states=1;//左转
 	}
-	if((flag!=1)&(mid_r==1)&(left==0))//左偏
+	if((mid_r==1)&(left==0))//左偏
 	{
-		states=2;//左快右慢
+		states=2;//右转
+	}
+	switch(states)//电机控制状态
+	{
+		case 1: PWMA_UP(47-20),PWMB_UP(50+20);break;//左转
+		case 2: PWMA_UP(47+20),PWMB_UP(50-20);break;//右转
+		case 3: PWMA_UP(47),PWMB_UP(50);break;//直行
+		case 4: PWMB_STOP(),PWMA_STOP();break;//停车
 	}
 }
 
 void Plan_A(void)
 {
-	#if 1
-	printf("flag=%d\n",flag);
-	
 	if((flag==0)&(left==0)&(mid_l==0)&(mid_r==0)&(right==0))//都不压线 且 flag为0
 	{
 		Car_Fore(50);//直行 不循线的
@@ -67,16 +65,7 @@ void Plan_A(void)
 		SysTick_Delay_Ms(1000);
 		Car_Stop();
 		flag=2;
-	}
-
-	switch(states)//电机控制状态
-	{
-		case 1: PWMA_UP(47-20),PWMB_UP(50+20);break;//左转
-		case 2: PWMA_UP(47+20),PWMB_UP(50-20);break;//右转
-		case 3: PWMA_UP(47),PWMB_UP(50);break;//直行
-		case 4: PWMB_STOP(),PWMA_STOP();break;//停车
-	}
-	#endif
+	}	
 /*==========================================================================================================================================================================*/			
 	#if 0	//测试红外传感器阈值
 	int left,mid_l,mid_r,right;
