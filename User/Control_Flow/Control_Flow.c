@@ -35,6 +35,7 @@ void Plan_A(void)
 	mid_l=LED_2_out;
 	mid_r=LED_3_out;
 	right=LED_4_out;
+	
 	#if 1
 	if((flag==0)&(left==0)&(mid_l==0)&(mid_r==0)&(right==0))//¶¼²»Ñ¹Ïß
 	{
