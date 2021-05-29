@@ -107,3 +107,16 @@ void PWMB_STOP(void)
 	BIN1_ON;//B0
 	BIN2_ON;//B1
 }
+
+void Car_Fore(int a)
+{
+	PWMA_UP(a);
+	PWMB_UP(a);
+}
+
+void Car_Stop(void)
+{
+	PWMB_STOP();
+	PWMB_STOP();
+}
+

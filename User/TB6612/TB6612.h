@@ -7,7 +7,7 @@
 
 /*B0端口*/
 #define AIN1_GPIO_PIN		GPIO_Pin_0
-#define AIN1_GPIO_PORT	GPIOB
+#define AIN1_GPIO_PORT  	GPIOB
 #define AIN1_GPIO_CLK		RCC_APB2Periph_GPIOB
 
 /*输出高电平*/
@@ -62,5 +62,8 @@ void PWMA_STOP(void);
 void PWMB_UP(int a);
 void PWMB_BACK(int a);
 void PWMB_STOP(void);
+
+void Car_Fore(int a);
+void Car_Stop(void);
 #endif
 

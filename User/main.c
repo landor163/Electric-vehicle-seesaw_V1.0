@@ -32,6 +32,7 @@ int main(void)
 	DMP_Init();	
 	while(1)
 	{
+		Follow_line();
 		Plan_A();
 	}
 }
