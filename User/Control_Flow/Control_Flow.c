@@ -22,6 +22,16 @@ int left,mid_l,mid_r,right,states;
 static int flag=0;
 
 
+void delay_us(u16 time)//毫秒级延时
+{    
+   u16 i=0;  
+   while(time--)
+   {
+      i=10;  //自己定义
+      while(i--) ;    
+   }
+}
+
 void Follow_line()
 {
 	left =LED_1_out;
@@ -61,7 +71,7 @@ void Plan_A(void)
 	{
 		//第一次识别到黑线，也就是A点
 		Car_Fore(50);		
-		SysTick_Delay_Ms(1000);
+		delay_us(1000);
 		Car_Stop();
 		flag=2;
 	}
@@ -69,6 +79,8 @@ void Plan_A(void)
 	{
 		BEEP(500);
 	}
+
+
 /*==========================================================================================================================================================================*/			
 	#if 0	//测试红外传感器阈值
 	int left,mid_l,mid_r,right;
