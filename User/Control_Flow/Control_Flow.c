@@ -38,6 +38,10 @@ void Follow_line()
 	mid_l=LED_2_out;
 	mid_r=LED_3_out;
 	right=LED_4_out;
+	//printf("left=%d,mid_l=%d,mid_r=%d,right=%d \n",left,mid_l,mid_r,right);
+
+	Read_DMP();
+	printf ("Pitch=%f \n",(Pitch-3.5));
 
 	if((mid_l==1)&(right==0))//右偏
 	{
@@ -79,28 +83,5 @@ void Plan_A(void)
 	{
 		BEEP(500);
 	}
-
-
-/*==========================================================================================================================================================================*/			
-	#if 0	//测试红外传感器阈值
-	int left,mid_l,mid_r,right;
-	
-	left=LED_1_out;
-	mid_l=LED_2_out;
-	mid_r=LED_3_out;
-	right=LED_4_out;
-	
-	printf("left=%d,mid_l=%d,mid_r=%d,right=%d \n",left,mid_l,mid_r,right);
-	#endif
-	
-	#if 0
-	PWMA_UP(47);
-	PWMB_UP(50);
-	#endif
-	
-	#if 0	//角度
-	Read_DMP();
-	printf ("Pitch=%f \n",(Pitch-3.5));
-	#endif
 }
 
