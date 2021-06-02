@@ -21,19 +21,64 @@ Target DLL:      CMSIS_AGDI.dll V1.30.6.0
 Dialog DLL:      TCM.DLL V1.36.1.0
  
 <h2>Project:</h2>
-D:\001_Main\006_21年电赛校赛\002_程序备份\电动车跷跷板V1.0\Project\STM32_StandardLibrary.uvprojx
-Project File Date:  05/24/2021
+d:\001_Main\006_21年电赛校赛\002_程序备份\电动车跷跷板V1.0\Project\STM32_StandardLibrary.uvprojx
+Project File Date:  06/02/2021
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin'
 Build target 'STM32_StandardLibrary'
-"..\Output\STM32_StandardLibrary.axf" - 0 Error(s), 0 Warning(s).
+compiling Filter.c...
+..\User\Filter\Filter.c(42): error:  #893: a variable length array cannot have static storage duration
+      static char a[N]={0};
+..\User\Filter\Filter.c(42): error:  #145: variable "a"  may not be initialized
+      static char a[N]={0};
+..\User\Filter\Filter.c(53): error:  #42: operand types are incompatible ("char *" and "char")
+              if(a>a[i+1])
+..\User\Filter\Filter.c(55): error:  #513: a value of type "char *" cannot be assigned to an entity of type "char"
+                  temp=a;
+..\User\Filter\Filter.c(56): error:  #137: expression must be a modifiable lvalue
+                  a=a[i+1];
+..\User\Filter\Filter.c(41): warning:  #177-D: variable "sample_value"  was declared but never referenced
+      static char sample_value=0,count=0,i=0,j=0,temp=0;
+..\User\Filter\Filter.c(83): error:  #65: expected a ";"
+  }
+..\User\Filter\Filter.c(97): error:  #893: a variable length array cannot have static storage duration
+      static int a[N];
+..\User\Filter\Filter.c(110): error:  #65: expected a ";"
+      }
+..\User\Filter\Filter.c(111): warning:  #940-D: missing return statement at end of non-void function "Moving_Average_Filter" 
+  }
+..\User\Filter\Filter.c(124): error:  #893: a variable length array cannot have static storage duration
+      static int count,i,j,a[N],sum,temp;
+..\User\Filter\Filter.c(135): error:  #42: operand types are incompatible ("int *" and "int")
+              if(a>a[i+1])
+..\User\Filter\Filter.c(137): error:  #513: a value of type "int *" cannot be assigned to an entity of type "int"
+                  temp=a;
+..\User\Filter\Filter.c(138): error:  #137: expression must be a modifiable lvalue
+                  a=a[i+1];
+..\User\Filter\Filter.c(148): error:  #65: expected a ";"
+      }
+..\User\Filter\Filter.c(149): warning:  #940-D: missing return statement at end of non-void function "Median_Average_Filter" 
+  }
+..\User\Filter\Filter.c(195): error:  #893: a variable length array cannot have static storage duration
+      static int code_coe[N]={1,2,3,4,5,6,7,8,9,10,11,12};
+..\User\Filter\Filter.c(195): error:  #145: variable "code_coe"  may not be initialized
+      static int code_coe[N]={1,2,3,4,5,6,7,8,9,10,11,12};
+..\User\Filter\Filter.c(198): error:  #893: a variable length array cannot have static storage duration
+      static int count=0,a[N],sum=0;
+..\User\Filter\Filter.c(209): warning:  #940-D: missing return statement at end of non-void function "Weighted_Recursive_Average_Filter" 
+  }
+..\User\Filter\Filter.c(239): error:  #65: expected a ";"
+  }
+..\User\Filter\Filter.c: 4 warnings, 17 errors
+"..\Output\STM32_StandardLibrary.axf" - 17 Error(s), 4 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
-  D:\001_Main\006_21年电赛校赛\002_程序备份\电动车跷跷板V1.0\Project\RTE
+  d:\001_Main\006_21年电赛校赛\002_程序备份\电动车跷跷板V1.0\Project\RTE
   D:\017_Keil_MDK-ARM_V5.26\ARM\PACK\Keil\STM32F1xx_DFP\2.1.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
+Target not created.
 </pre>
 </body>
 </html>

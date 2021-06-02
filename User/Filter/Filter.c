@@ -38,8 +38,8 @@ int Limit_Filter(int x,int A)
 ==================================================================================================*/
 int Median_Filter(int x,int N)
 {
-    static int sample_value,count,i,j,temp;
-    static int a[N];
+    static char sample_value=0,count=0,i=0,j=0,temp=0;
+    static char a[N]={0};
 
     for(count=0;count<N;count++)
     {
@@ -195,7 +195,7 @@ int Weighted_Recursive_Average_Filter(int x,int N)
     static int code_coe[N]={1,2,3,4,5,6,7,8,9,10,11,12};
     static int sum_coe=1+2+3+4+5+6+7+8+9+10+11+12;
 
-    static int count,a[N],sum;
+    static int count=0,a[N],sum=0;
 
     for(count=0;count<N;count++)
     {
@@ -204,7 +204,7 @@ int Weighted_Recursive_Average_Filter(int x,int N)
     for(count=0;count<N;count++)
     {
         sum+=a[count]*code_coe[count];
-        return (sum/sum_coe)
+        return (sum/sum_coe);
     }
 }
 
