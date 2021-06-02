@@ -50,3 +50,4 @@
 ..\output\main.o: ..\User\Find_Num\bsp_Find_Num.h
 ..\output\main.o: ..\User\Control_Flow\Control_Flow.h
 ..\output\main.o: ..\User\SysTick\bsp_SysTick.h
+..\output\main.o: ..\User\Filter\Filter.h

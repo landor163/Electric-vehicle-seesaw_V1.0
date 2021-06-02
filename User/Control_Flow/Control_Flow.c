@@ -22,15 +22,15 @@ int left,mid_l,mid_r,right,states;
 static int flag=0;
 
 
-void delay_us(u16 time)//毫秒级延时
-{    
-   u16 i=0;  
-   while(time--)
-   {
-      i=10;  //自己定义
-      while(i--) ;    
-   }
-}
+//void delay_us(int time)//毫秒级延时
+//{    
+//   u16 i=0;  
+//   while(time--)
+//   {
+//      i=10;  //自己定义
+//      while(i--) ;    
+//   }
+//}
 
 void Follow_line()
 {

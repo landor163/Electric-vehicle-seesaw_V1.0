@@ -370,7 +370,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Libraries\CMSIS;..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\User;..\User\TB6612;..\User\GeneralTim_3;..\User\Usart;..\User\System;..\User\Delay;..\User\IIC;..\User\TIMER;..\User\MPU6050;..\User\DMP;..\User\Balance;..\User\Buzzer;..\User\Find_Num;..\User\Control_Flow;..\User\SysTick</IncludePath>
+              <IncludePath>..\Libraries\CMSIS;..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\User;..\User\TB6612;..\User\GeneralTim_3;..\User\Usart;..\User\System;..\User\Delay;..\User\IIC;..\User\TIMER;..\User\MPU6050;..\User\DMP;..\User\Balance;..\User\Buzzer;..\User\Find_Num;..\User\Control_Flow;..\User\SysTick;..\User\Filter</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -642,6 +642,11 @@
               <FileName>bsp_SysTick.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\SysTick\bsp_SysTick.c</FilePath>
+            </File>
+            <File>
+              <FileName>Filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Filter\Filter.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -9,6 +9,7 @@
 #include "bsp_Find_Num.h"
 #include "Control_Flow.h"
 #include "bsp_SysTick.h"
+#include "Filter.h"
 
 
 int main(void)
