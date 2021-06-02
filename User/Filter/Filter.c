@@ -171,9 +171,14 @@ void Limit_Average_Filter()
 输入量：x 为采集值；A 为最大偏差值
 输出量：sample_value为滤波后的采集值
 ==================================================================================================*/
-void FirstOrder_Lag_Filter()
+int FirstOrder_Lag_Filter(int x,int a)
 {
+    static int sample_value,last_value;
+
+    sample_value=x;
+    last_value=sample_value;
     
+    return (100-a)*last_value+a*sample_value;
 }
 
 /*==================================================================================================
@@ -185,9 +190,22 @@ void FirstOrder_Lag_Filter()
 输入量：x 为采集值；A 为最大偏差值
 输出量：sample_value为滤波后的采集值
 ==================================================================================================*/
-void Weighted_Recursive_Average_Filter()
+int Weighted_Recursive_Average_Filter(int x,int N)
 {
-    
+    static int code_coe[N]={1,2,3,4,5,6,7,8,9,10,11,12};
+    static int sum_coe=1+2+3+4+5+6+7+8+9+10+11+12;
+
+    static int count,a[N],sum;
+
+    for(count=0;count<N;count++)
+    {
+        a[count]=x;
+    }
+    for(count=0;count<N;count++)
+    {
+        sum+=a[count]*code_coe[count];
+        return (sum/sum_coe)
+    }
 }
 
 /*==================================================================================================
@@ -199,9 +217,25 @@ void Weighted_Recursive_Average_Filter()
 输入量：x 为采集值；A 为最大偏差值
 输出量：sample_value为滤波后的采集值
 ==================================================================================================*/
-void Debounce_Filter()
+int Debounce_Filter(int x,int N)
 {
-    
+    static int count;
+
+    static int sample_value,last_value;
+
+    sample_value=x;
+    last_value=sample_value;
+
+    while(last_value!=sample_value)
+    {
+        count++;
+        if(count>=N)
+        {
+            return sample_value;
+        }
+        sample_value=x;
+    }
+    return last_value
 }
 
 /*==================================================================================================
