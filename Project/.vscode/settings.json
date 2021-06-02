@@ -6,6 +6,7 @@
         "balance.h": "c",
         "bsp_systick.h": "c",
         "delay.h": "c",
-        "control_flow.h": "c"
+        "control_flow.h": "c",
+        "filter.h": "c"
     }
 }
