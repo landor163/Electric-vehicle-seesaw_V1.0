@@ -1,6 +1,7 @@
 #include "Filter.h"
 
 
+int N = 10 ;
 /*==================================================================================================
 限幅滤波法
 
@@ -38,8 +39,8 @@ int Limit_Filter(int x,int A)
 ==================================================================================================*/
 int Median_Filter(int x,int N)
 {
-    static char sample_value=0,count=0,i=0,j=0,temp=0;
-    static char a[N]={0};
+    int count=0,i=0,j=0,temp=0;
+    int a[10]={0};
 
     for(count=0;count<N;count++)
     {
@@ -50,10 +51,10 @@ int Median_Filter(int x,int N)
     {
         for (i=0;i<N-j;i++)
         {
-            if(a>a[i+1])
+            if(a[i] >= (a[i+1]) )
             {
-                temp=a;
-                a=a[i+1];
+                temp=a[i];
+                a[i]=a[i+1];
                 a[i+1]=temp;
             }
         }
@@ -79,7 +80,7 @@ int Arithmetic_Average_Filter(int x,int N)
     {
         sum+=x;
     }
-    return (sum/N)
+    return (sum/N);
 }
 
 /*==================================================================================================
@@ -91,10 +92,11 @@ int Arithmetic_Average_Filter(int x,int N)
 
 输入量：x 为采集值；N 为连续采样次数
 输出量：滤波后的采集值
+static int a[N];
 ==================================================================================================*/
 int Moving_Average_Filter(int x,int N)
 {
-    static int a[N];
+    static int a[10]={0};
     static int i=0,count,sum;
 
     a[i++]=x;
@@ -106,8 +108,8 @@ int Moving_Average_Filter(int x,int N)
     for(count=0;count<N;count++)
     {
         sum=a[count];
-        return (sum/N)
     }
+    return (sum/N);
 }
 
 /*==================================================================================================
@@ -121,7 +123,7 @@ int Moving_Average_Filter(int x,int N)
 ==================================================================================================*/
 int Median_Average_Filter(int x,int N)
 {
-    static int count,i,j,a[N],sum,temp;
+    static int count,i,j,a[10]={0},sum,temp;
 
     for(count=0;count<N;count++)
     {
@@ -132,10 +134,10 @@ int Median_Average_Filter(int x,int N)
     {
         for(i=0;i<N-j;i++)
         {
-            if(a>a[i+1])
+            if(a[i]>a[i+1])
             {
-                temp=a;
-                a=a[i+1];
+                temp=a[i];
+                a[i]=a[i+1];
                 a[i+1]=temp;
             }
         }
@@ -144,8 +146,8 @@ int Median_Average_Filter(int x,int N)
     for(count=1;count<N-1;count++)
     {
         sum+=a[count];
-        return (sum/(N-2))
     }
+    return (sum/(N-2));
 }
 
 /*==================================================================================================
@@ -192,10 +194,10 @@ int FirstOrder_Lag_Filter(int x,int a)
 ==================================================================================================*/
 int Weighted_Recursive_Average_Filter(int x,int N)
 {
-    static int code_coe[N]={1,2,3,4,5,6,7,8,9,10,11,12};
+    static int code_coe[12]={1,2,3,4,5,6,7,8,9,10,11,12};
     static int sum_coe=1+2+3+4+5+6+7+8+9+10+11+12;
 
-    static int count=0,a[N],sum=0;
+    static int count=0,a[12]={0},sum=0;
 
     for(count=0;count<N;count++)
     {
@@ -204,8 +206,8 @@ int Weighted_Recursive_Average_Filter(int x,int N)
     for(count=0;count<N;count++)
     {
         sum+=a[count]*code_coe[count];
-        return (sum/sum_coe);
     }
+    return (sum/sum_coe);
 }
 
 /*==================================================================================================
@@ -235,7 +237,7 @@ int Debounce_Filter(int x,int N)
         }
         sample_value=x;
     }
-    return last_value
+    return last_value;
 }
 
 /*==================================================================================================

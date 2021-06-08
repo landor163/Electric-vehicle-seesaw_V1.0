@@ -524,6 +524,17 @@ Section Cross References
     bsp_systick.o(i.SysTick_Init) refers to bsp_systick.o(i.SysTick_Config) for SysTick_Config
     bsp_systick.o(i.SysTick_Init) refers to system_stm32f10x.o(.data) for SystemCoreClock
     bsp_systick.o(i.TimingDelay_Decrement) refers to bsp_systick.o(.data) for TimingDelay
+    filter.o(i.Arithmetic_Average_Filter) refers to filter.o(.data) for count
+    filter.o(i.Debounce_Filter) refers to filter.o(.data) for sample_value
+    filter.o(i.FirstOrder_Lag_Filter) refers to filter.o(.data) for sample_value
+    filter.o(i.Limit_Filter) refers to filter.o(.data) for sample_value
+    filter.o(i.Median_Average_Filter) refers to filter.o(.data) for count
+    filter.o(i.Median_Average_Filter) refers to filter.o(.bss) for a
+    filter.o(i.Median_Filter) refers to memseta.o(.text) for __aeabi_memclr4
+    filter.o(i.Moving_Average_Filter) refers to filter.o(.data) for i
+    filter.o(i.Moving_Average_Filter) refers to filter.o(.bss) for a
+    filter.o(i.Weighted_Recursive_Average_Filter) refers to filter.o(.data) for count
+    filter.o(i.Weighted_Recursive_Average_Filter) refers to filter.o(.bss) for a
     asin.o(i.__softfp_asin) refers (Special) to iusefp.o(.text) for __I$use$fp
     asin.o(i.__softfp_asin) refers to asin.o(i.asin) for asin
     asin.o(i.asin) refers (Special) to iusefp.o(.text) for __I$use$fp
@@ -1428,10 +1439,22 @@ Removing Unused input sections from the image.
     Removing bsp_systick.o(i.SysTick_Init), (36 bytes).
     Removing bsp_systick.o(i.TimingDelay_Decrement), (24 bytes).
     Removing bsp_systick.o(.data), (4 bytes).
+    Removing filter.o(i.Arithmetic_Average_Filter), (56 bytes).
+    Removing filter.o(i.Debounce_Filter), (72 bytes).
+    Removing filter.o(i.FirstOrder_Lag_Filter), (40 bytes).
+    Removing filter.o(i.Limit_Average_Filter), (2 bytes).
+    Removing filter.o(i.Limit_Filter), (60 bytes).
+    Removing filter.o(i.Limiting_Debounce_Filter), (2 bytes).
+    Removing filter.o(i.Median_Average_Filter), (256 bytes).
+    Removing filter.o(i.Median_Filter), (132 bytes).
+    Removing filter.o(i.Moving_Average_Filter), (104 bytes).
+    Removing filter.o(i.Weighted_Recursive_Average_Filter), (132 bytes).
+    Removing filter.o(.bss), (128 bytes).
+    Removing filter.o(.data), (132 bytes).
     Removing dflti.o(.text), (34 bytes).
     Removing cdcmple.o(.text), (48 bytes).
 
-516 unused section(s) (total 23374 bytes) removed from the image.
+528 unused section(s) (total 24490 bytes) removed from the image.
 
 ==============================================================================
 
@@ -2148,47 +2171,47 @@ Memory Map of the image
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x000000ec   Data   RO            3    RESET               startup_stm32f10x_md.o
-    0x080000ec   0x00000000   Code   RO         4374  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x080000ec   0x00000004   Code   RO         4709    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x080000f0   0x00000004   Code   RO         4712    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x080000f4   0x00000000   Code   RO         4714    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x080000f4   0x00000000   Code   RO         4716    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x080000f4   0x00000008   Code   RO         4717    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x080000fc   0x00000000   Code   RO         4719    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x080000fc   0x00000000   Code   RO         4721    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x080000fc   0x00000004   Code   RO         4710    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x080000ec   0x00000000   Code   RO         4438  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x080000ec   0x00000004   Code   RO         4773    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x080000f0   0x00000004   Code   RO         4776    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x080000f4   0x00000000   Code   RO         4778    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x080000f4   0x00000000   Code   RO         4780    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x080000f4   0x00000008   Code   RO         4781    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x080000fc   0x00000000   Code   RO         4783    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x080000fc   0x00000000   Code   RO         4785    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x080000fc   0x00000004   Code   RO         4774    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x08000100   0x00000024   Code   RO            4  * .text               startup_stm32f10x_md.o
-    0x08000124   0x00000062   Code   RO         4377    .text               mc_w.l(ldiv.o)
-    0x08000186   0x00000024   Code   RO         4379    .text               mc_w.l(memseta.o)
-    0x080001aa   0x0000001a   Code   RO         4381    .text               mc_w.l(memcmp.o)
-    0x080001c4   0x000000b0   Code   RO         4644    .text               mf_w.l(fadd.o)
-    0x08000274   0x00000064   Code   RO         4646    .text               mf_w.l(fmul.o)
-    0x080002d8   0x0000007c   Code   RO         4648    .text               mf_w.l(fdiv.o)
-    0x08000354   0x0000014e   Code   RO         4650    .text               mf_w.l(dadd.o)
-    0x080004a2   0x000000e4   Code   RO         4652    .text               mf_w.l(dmul.o)
-    0x08000586   0x00000012   Code   RO         4654    .text               mf_w.l(fflti.o)
-    0x08000598   0x0000000a   Code   RO         4656    .text               mf_w.l(ffltui.o)
-    0x080005a2   0x00000032   Code   RO         4660    .text               mf_w.l(ffixi.o)
-    0x080005d4   0x00000028   Code   RO         4662    .text               mf_w.l(ffixui.o)
-    0x080005fc   0x00000026   Code   RO         4664    .text               mf_w.l(f2d.o)
-    0x08000622   0x00000038   Code   RO         4666    .text               mf_w.l(d2f.o)
+    0x08000124   0x00000062   Code   RO         4441    .text               mc_w.l(ldiv.o)
+    0x08000186   0x00000024   Code   RO         4443    .text               mc_w.l(memseta.o)
+    0x080001aa   0x0000001a   Code   RO         4445    .text               mc_w.l(memcmp.o)
+    0x080001c4   0x000000b0   Code   RO         4708    .text               mf_w.l(fadd.o)
+    0x08000274   0x00000064   Code   RO         4710    .text               mf_w.l(fmul.o)
+    0x080002d8   0x0000007c   Code   RO         4712    .text               mf_w.l(fdiv.o)
+    0x08000354   0x0000014e   Code   RO         4714    .text               mf_w.l(dadd.o)
+    0x080004a2   0x000000e4   Code   RO         4716    .text               mf_w.l(dmul.o)
+    0x08000586   0x00000012   Code   RO         4718    .text               mf_w.l(fflti.o)
+    0x08000598   0x0000000a   Code   RO         4720    .text               mf_w.l(ffltui.o)
+    0x080005a2   0x00000032   Code   RO         4724    .text               mf_w.l(ffixi.o)
+    0x080005d4   0x00000028   Code   RO         4726    .text               mf_w.l(ffixui.o)
+    0x080005fc   0x00000026   Code   RO         4728    .text               mf_w.l(f2d.o)
+    0x08000622   0x00000038   Code   RO         4730    .text               mf_w.l(d2f.o)
     0x0800065a   0x00000002   PAD
-    0x0800065c   0x00000014   Code   RO         4668    .text               mf_w.l(cfcmple.o)
-    0x08000670   0x00000014   Code   RO         4670    .text               mf_w.l(cfrcmple.o)
-    0x08000684   0x0000002c   Code   RO         4724    .text               mc_w.l(uidiv.o)
-    0x080006b0   0x00000062   Code   RO         4726    .text               mc_w.l(uldiv.o)
-    0x08000712   0x0000001e   Code   RO         4728    .text               mc_w.l(llshl.o)
-    0x08000730   0x00000024   Code   RO         4730    .text               mc_w.l(llsshr.o)
-    0x08000754   0x00000000   Code   RO         4739    .text               mc_w.l(iusefp.o)
-    0x08000754   0x0000006e   Code   RO         4740    .text               mf_w.l(fepilogue.o)
-    0x080007c2   0x000000ba   Code   RO         4742    .text               mf_w.l(depilogue.o)
-    0x0800087c   0x000000de   Code   RO         4744    .text               mf_w.l(ddiv.o)
-    0x0800095a   0x0000002e   Code   RO         4746    .text               mf_w.l(dscalb.o)
-    0x08000988   0x00000030   Code   RO         4748    .text               mf_w.l(dfixul.o)
-    0x080009b8   0x00000030   Code   RO         4750    .text               mf_w.l(cdrcmple.o)
-    0x080009e8   0x00000024   Code   RO         4752    .text               mc_w.l(init.o)
-    0x08000a0c   0x00000020   Code   RO         4754    .text               mc_w.l(llushr.o)
-    0x08000a2c   0x000000a2   Code   RO         4756    .text               mf_w.l(dsqrt.o)
+    0x0800065c   0x00000014   Code   RO         4732    .text               mf_w.l(cfcmple.o)
+    0x08000670   0x00000014   Code   RO         4734    .text               mf_w.l(cfrcmple.o)
+    0x08000684   0x0000002c   Code   RO         4788    .text               mc_w.l(uidiv.o)
+    0x080006b0   0x00000062   Code   RO         4790    .text               mc_w.l(uldiv.o)
+    0x08000712   0x0000001e   Code   RO         4792    .text               mc_w.l(llshl.o)
+    0x08000730   0x00000024   Code   RO         4794    .text               mc_w.l(llsshr.o)
+    0x08000754   0x00000000   Code   RO         4803    .text               mc_w.l(iusefp.o)
+    0x08000754   0x0000006e   Code   RO         4804    .text               mf_w.l(fepilogue.o)
+    0x080007c2   0x000000ba   Code   RO         4806    .text               mf_w.l(depilogue.o)
+    0x0800087c   0x000000de   Code   RO         4808    .text               mf_w.l(ddiv.o)
+    0x0800095a   0x0000002e   Code   RO         4810    .text               mf_w.l(dscalb.o)
+    0x08000988   0x00000030   Code   RO         4812    .text               mf_w.l(dfixul.o)
+    0x080009b8   0x00000030   Code   RO         4814    .text               mf_w.l(cdrcmple.o)
+    0x080009e8   0x00000024   Code   RO         4816    .text               mc_w.l(init.o)
+    0x08000a0c   0x00000020   Code   RO         4818    .text               mc_w.l(llushr.o)
+    0x08000a2c   0x000000a2   Code   RO         4820    .text               mf_w.l(dsqrt.o)
     0x08000ace   0x00000002   PAD
     0x08000ad0   0x0000002c   Code   RO         3272    i.AIN1_GPIO_Config  tb6612.o
     0x08000afc   0x0000002c   Code   RO         3273    i.AIN2_GPIO_Config  tb6612.o
@@ -2275,27 +2298,27 @@ Memory Map of the image
     0x0800209c   0x000000d8   Code   RO         2885    i.USART_Init        stm32f10x_usart.o
     0x08002174   0x00000008   Code   RO         2895    i.USART_SendData    stm32f10x_usart.o
     0x0800217c   0x00000004   Code   RO         3217    i.UsageFault_Handler  stm32f10x_it.o
-    0x08002180   0x00000020   Code   RO         4616    i.__0printf         mc_w.l(printfa.o)
-    0x080021a0   0x00000028   Code   RO         4696    i.__ARM_fpclassify  m_ws.l(fpclassify.o)
-    0x080021c8   0x000000aa   Code   RO         4698    i.__kernel_poly     m_ws.l(poly.o)
-    0x08002272   0x00000006   Code   RO         4683    i.__mathlib_dbl_infnan  m_ws.l(dunder.o)
-    0x08002278   0x00000004   Code   RO         4684    i.__mathlib_dbl_infnan2  m_ws.l(dunder.o)
-    0x0800227c   0x0000000c   Code   RO         4685    i.__mathlib_dbl_invalid  m_ws.l(dunder.o)
-    0x08002288   0x00000010   Code   RO         4688    i.__mathlib_dbl_underflow  m_ws.l(dunder.o)
-    0x08002298   0x0000000e   Code   RO         4762    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x080022a6   0x00000002   Code   RO         4763    i.__scatterload_null  mc_w.l(handlers.o)
-    0x080022a8   0x0000000e   Code   RO         4764    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x08002180   0x00000020   Code   RO         4680    i.__0printf         mc_w.l(printfa.o)
+    0x080021a0   0x00000028   Code   RO         4760    i.__ARM_fpclassify  m_ws.l(fpclassify.o)
+    0x080021c8   0x000000aa   Code   RO         4762    i.__kernel_poly     m_ws.l(poly.o)
+    0x08002272   0x00000006   Code   RO         4747    i.__mathlib_dbl_infnan  m_ws.l(dunder.o)
+    0x08002278   0x00000004   Code   RO         4748    i.__mathlib_dbl_infnan2  m_ws.l(dunder.o)
+    0x0800227c   0x0000000c   Code   RO         4749    i.__mathlib_dbl_invalid  m_ws.l(dunder.o)
+    0x08002288   0x00000010   Code   RO         4752    i.__mathlib_dbl_underflow  m_ws.l(dunder.o)
+    0x08002298   0x0000000e   Code   RO         4826    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x080022a6   0x00000002   Code   RO         4827    i.__scatterload_null  mc_w.l(handlers.o)
+    0x080022a8   0x0000000e   Code   RO         4828    i.__scatterload_zeroinit  mc_w.l(handlers.o)
     0x080022b6   0x00000002   PAD
-    0x080022b8   0x0000000c   Code   RO         4734    i.__set_errno       mc_w.l(errno.o)
-    0x080022c4   0x00000184   Code   RO         4623    i._fp_digits        mc_w.l(printfa.o)
-    0x08002448   0x000006dc   Code   RO         4624    i._printf_core      mc_w.l(printfa.o)
-    0x08002b24   0x00000024   Code   RO         4625    i._printf_post_padding  mc_w.l(printfa.o)
-    0x08002b48   0x0000002e   Code   RO         4626    i._printf_pre_padding  mc_w.l(printfa.o)
+    0x080022b8   0x0000000c   Code   RO         4798    i.__set_errno       mc_w.l(errno.o)
+    0x080022c4   0x00000184   Code   RO         4687    i._fp_digits        mc_w.l(printfa.o)
+    0x08002448   0x000006dc   Code   RO         4688    i._printf_core      mc_w.l(printfa.o)
+    0x08002b24   0x00000024   Code   RO         4689    i._printf_post_padding  mc_w.l(printfa.o)
+    0x08002b48   0x0000002e   Code   RO         4690    i._printf_pre_padding  mc_w.l(printfa.o)
     0x08002b76   0x00000002   PAD
     0x08002b78   0x000000a8   Code   RO         3768    i.accel_self_test   inv_mpu.o
-    0x08002c20   0x00000270   Code   RO         4357    i.asin              m_ws.l(asin.o)
-    0x08002e90   0x00000220   Code   RO         4673    i.atan              m_ws.l(atan.o)
-    0x080030b0   0x00000180   Code   RO         4367    i.atan2             m_ws.l(atan2.o)
+    0x08002c20   0x00000270   Code   RO         4421    i.asin              m_ws.l(asin.o)
+    0x08002e90   0x00000220   Code   RO         4737    i.atan              m_ws.l(atan.o)
+    0x080030b0   0x00000180   Code   RO         4431    i.atan2             m_ws.l(atan2.o)
     0x08003230   0x00000064   Code   RO         4057    i.decode_gesture    inv_mpu_dmp_motion_driver.o
     0x08003294   0x00000040   Code   RO         3505    i.delay_init        delay.o
     0x080032d4   0x0000003c   Code   RO         3506    i.delay_ms          delay.o
@@ -2356,16 +2379,16 @@ Memory Map of the image
     0x0800566e   0x00000002   PAD
     0x08005670   0x000000bc   Code   RO         3667    i.run_self_test     mpu6050.o
     0x0800572c   0x00000090   Code   RO         3813    i.set_int_enable    inv_mpu.o
-    0x080057bc   0x0000004c   Code   RO         4702    i.sqrt              m_ws.l(sqrt.o)
+    0x080057bc   0x0000004c   Code   RO         4766    i.sqrt              m_ws.l(sqrt.o)
     0x08005808   0x00000050   Data   RO         3814    .constdata          inv_mpu.o
     0x08005858   0x00000bf6   Data   RO         4086    .constdata          inv_mpu_dmp_motion_driver.o
     0x0800644e   0x00000002   PAD
-    0x08006450   0x00000050   Data   RO         4358    .constdata          m_ws.l(asin.o)
-    0x080064a0   0x00000098   Data   RO         4674    .constdata          m_ws.l(atan.o)
-    0x08006538   0x00000008   Data   RO         4700    .constdata          m_ws.l(qnan.o)
+    0x08006450   0x00000050   Data   RO         4422    .constdata          m_ws.l(asin.o)
+    0x080064a0   0x00000098   Data   RO         4738    .constdata          m_ws.l(atan.o)
+    0x08006538   0x00000008   Data   RO         4764    .constdata          m_ws.l(qnan.o)
     0x08006540   0x0000004e   Data   RO         3815    .conststring        inv_mpu.o
     0x0800658e   0x00000002   PAD
-    0x08006590   0x00000020   Data   RO         4760    Region$$Table       anon$$obj.o
+    0x08006590   0x00000020   Data   RO         4824    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x000000a4, Max: 0xffffffff, ABSOLUTE)
@@ -2377,8 +2400,8 @@ Memory Map of the image
     0x20000018   0x00000040   Data   RW         3669    .data               mpu6050.o
     0x20000058   0x0000002c   Data   RW         3816    .data               inv_mpu.o
     0x20000084   0x00000018   Data   RW         4280    .data               control_flow.o
-    0x2000009c   0x00000004   Data   RW         4723    .data               mc_w.l(stdout.o)
-    0x200000a0   0x00000004   Data   RW         4735    .data               mc_w.l(errno.o)
+    0x2000009c   0x00000004   Data   RW         4787    .data               mc_w.l(stdout.o)
+    0x200000a0   0x00000004   Data   RW         4799    .data               mc_w.l(errno.o)
 
 
     Execution Region ER_ZI (Base: 0x200000a4, Size: 0x00000414, Max: 0xffffffff, ABSOLUTE)
