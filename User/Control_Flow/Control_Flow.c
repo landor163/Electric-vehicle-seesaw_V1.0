@@ -22,8 +22,9 @@ float a[10]={0};
 int temp=0;
 float filPitch=0.00;
 int OUT;
-int KP,KI,KD;
+int KP=10,KI=0,KD=0;
 
+int Position_PID(int Encoder , int Target);
 
 void Plan_A(void)
 {
@@ -55,7 +56,9 @@ void Plan_A(void)
 		}
 	}
 	filPitch = (a[4]+a[5])/2;
-	printf ("filPitch=%f \n",filPitch);
+	//printf ("filPitch=%f \n",filPitch);
+	OUT=Position_PID(filPitch , 0);
+	printf("OUT=%d,filPitch=%f \n",OUT,filPitch);
 #endif
 
 
@@ -93,6 +96,9 @@ void Plan_A(void)
 #if 1
 /*
 以下为在跷跷板上自平衡程序；
+电机死区计算，电池输出 7.72V 时
+A UP 45自己能动 40自己就动不了了    BACK 45凑活 40一点都不动
+B UP 50劲很大 40垃圾的不行 45也不错 BACK 40也不行 45很好
 */
 	if(filPitch>10)
 	{
@@ -106,15 +112,16 @@ void Plan_A(void)
 	{
 		if(filPitch> 1 )
 		{
-			states=3;
+			PWMA_UP(OUT);
+			PWMB_UP(OUT);
 		}
 		if(filPitch< -1 )
 		{
-			states=5;
+			OUT=-OUT;
+			PWMA_BACK(OUT);
+			PWMB_BACK(OUT);
 		}
 	}
-	OUT=Position_PID(filPitch , 0);
-	printf("OUT=%d\n",OUT);
 #endif
 }
 

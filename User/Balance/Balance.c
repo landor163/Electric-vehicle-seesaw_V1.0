@@ -5,9 +5,8 @@
 #include "TB6612.h"
 #include "bsp_GeneralTim_3.h" 
 #include "stm32f10x.h"
-
-
-int KP,KI,KD;
+/*
+static int KP,KI,KD;
 
 int Position_PID(int Encoder , int Target)
 {
@@ -30,4 +29,4 @@ int Incremental_PID(int Encoder , int Target)
 	Last_Bias=Bias;
 	return Pwm;
 }
-
+*/
