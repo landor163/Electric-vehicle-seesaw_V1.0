@@ -7,17 +7,27 @@
 #include "stm32f10x.h"
 
 
-double PID_Position (PID *pid , int TarVal , int StaVal)
-{
-	int ParErr,//局部当前误差
-		Out;//实际输出
-	
-	ParErr = TarVal - StaVal;
-	pid->Error += pid->Int * ParErr;//可以适当限幅，但是我没有
-	Out = pid->Pro * ParErr
-		+ pid->Error
-		+ pid->Der * (ParErr - pid->LastErr);
+int KP,KI,KD;
 
-	return Out;
+int Position_PID(int Encoder , int Target)
+{
+	static float Bias,Pwm,Intergral_Bias,Last_Bias;
+
+	Bias=Encoder-Target;
+	Intergral_Bias+=Bias;
+	Pwm=KP*Bias+KI*Intergral_Bias+KD*(Bias-Last_Bias);
+	Last_Bias=Bias;
+	return Pwm;
+}
+
+
+int Incremental_PID(int Encoder , int Target)
+{
+	static float Bias,Pwm,Last_Bias;
+
+	Bias=Encoder-Target;
+	Pwm+=KP*(Bias-Last_Bias)+KI*Bias;
+	Last_Bias=Bias;
+	return Pwm;
 }
 

@@ -21,6 +21,8 @@ int flag=0;
 float a[10]={0};
 int temp=0;
 float filPitch=0.00;
+int OUT;
+int KP,KI,KD;
 
 
 void Plan_A(void)
@@ -111,6 +113,19 @@ void Plan_A(void)
 			states=5;
 		}
 	}
+	OUT=Position_PID(filPitch , 0);
+	printf("OUT=%d\n",OUT);
 #endif
+}
+
+int Position_PID(int Encoder , int Target)
+{
+	static float Bias,Pwm,Intergral_Bias,Last_Bias;
+
+	Bias=Encoder-Target;
+	Intergral_Bias+=Bias;
+	Pwm=KP*Bias+KI*Intergral_Bias+KD*(Bias-Last_Bias);
+	Last_Bias=Bias;
+	return Pwm;
 }
 
