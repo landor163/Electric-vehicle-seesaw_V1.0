@@ -50,3 +50,4 @@
 ..\output\control_flow.o: ..\User\GeneralTim_3\bsp_GeneralTim_3.h
 ..\output\control_flow.o: ..\User\Buzzer\Buzzer.h
 ..\output\control_flow.o: ..\User\SysTick\bsp_SysTick.h
+..\output\control_flow.o: ..\User\Filter\Filter.h

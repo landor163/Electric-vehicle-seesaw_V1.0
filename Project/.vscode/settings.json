@@ -9,6 +9,7 @@
         "control_flow.h": "c",
         "filter.h": "c",
         "LED.C": "cpp",
-        "DataScope_DP.C": "cpp"
+        "DataScope_DP.C": "cpp",
+        "stm32f10x_gpio.h": "c"
     }
 }

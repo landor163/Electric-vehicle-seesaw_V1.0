@@ -1,6 +1,4 @@
-*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin'
-Build target 'STM32_StandardLibrary'
-compiling Filter.c...
-linking...
-Program Size: Code=22300 RO-data=3732 RW-data=164 ZI-data=1044  
-"..\Output\STM32_StandardLibrary.axf" - 0 Error(s), 0 Warning(s).
+Load "..\\Output\\STM32_StandardLibrary.axf" 
+Internal DLL Error
+Error: Flash Download failed  -  Target DLL has been cancelled
+Flash Load finished at 16:43:34
