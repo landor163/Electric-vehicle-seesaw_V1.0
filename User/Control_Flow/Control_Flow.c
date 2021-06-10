@@ -57,8 +57,14 @@ void Plan_A(void)
 	}
 	filPitch = (a[4]+a[5])/2;
 	//printf ("filPitch=%f \n",filPitch);
+
 	OUT=Position_PID(filPitch , 0);
 	printf("OUT=%d,filPitch=%f \n",OUT,filPitch);
+	if(OUT>100)
+	{
+		OUT=100
+	}
+	if(OUT<)
 #endif
 
 
