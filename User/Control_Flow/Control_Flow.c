@@ -56,15 +56,7 @@ void Plan_A(void)
 		}
 	}
 	filPitch = (a[4]+a[5])/2;
-	//printf ("filPitch=%f \n",filPitch);
-
-	OUT=Position_PID(filPitch , 0);
-	printf("OUT=%d,filPitch=%f \n",OUT,filPitch);
-	if(OUT>100)
-	{
-		OUT=100
-	}
-	if(OUT<)
+	//printf ("filPitch=%f \n",filPitch);	
 #endif
 
 
@@ -106,26 +98,55 @@ void Plan_A(void)
 A UP 45自己能动 40自己就动不了了    BACK 45凑活 40一点都不动
 B UP 50劲很大 40垃圾的不行 45也不错 BACK 40也不行 45很好
 */
+	OUT=Position_PID(filPitch , 0);
+	printf("flag=%d,OUT=%d,filPitch=%f \n",flag,OUT,filPitch);
+
 	if(filPitch>10)
 	{
 		flag=3;//上板标志
+		if(flag==4)
+		{
+			flag=4;
+		}
 	}
 	if((flag==3)&(left==1)&(mid_l==1)&(mid_r==1)&(right==1))//全压黑线过A点
 	{
 		flag=4;//过第一条黑线标志
+		if((flag!=4)|(filPitch>10))//检查
+		{
+			flag=4;
+		}
 	}
-	if(flag==4)
+	if((flag==3)&(filPitch!=0))
 	{
 		if(filPitch> 1 )
 		{
+			if(OUT>100)
+			{
+				OUT=100;
+			}
+			if(OUT<45)
+			{
+				OUT=45;
+			}
 			PWMA_UP(OUT);
 			PWMB_UP(OUT);
+			flag=5;
 		}
 		if(filPitch< -1 )
 		{
 			OUT=-OUT;
+			if(OUT>100)
+			{
+				OUT=100;
+			}
+			if(OUT<45)
+			{
+				OUT=45;
+			}
 			PWMA_BACK(OUT);
 			PWMB_BACK(OUT);
+			flag=6;
 		}
 	}
 #endif
