@@ -13,9 +13,103 @@
 
 /*
 调试理想环境要绝对的理想，不要自己骗自己
+
+基本要求
+（1）电动车从起始端 A 出发，在 30 秒钟内行驶到中心点 C 附近； 
+（2）60 秒钟之内，电动车在中心点 C 附近使跷跷板处于平衡状态，保持平衡 5 秒钟，并给出明显的平衡指示； 
+（3）电动车从（2）中的平衡点出发，30 秒钟内行驶到跷跷板末端 B 处（车 头距跷跷板末端 B 不大于 50mm）；
+（4）电动车在 B 点停止 5 秒后，1 分钟内倒退回起始端 A，完成整个行程；
+（5）在整个行驶过程中，电动车始终在跷跷板上，并分阶段实时显示电动车 行驶所用的时间。
+发挥部分
+（1）从板外爬上跷跷板。
+（2）电动车在跷跷板上取得平衡，给出明显的平衡指示，保持平衡 5 秒钟以 上；
+（3）将另一块质量为电动车质量 10％～20％的块状配重放置在 A 至 C 间指 定的位置，电动车能够重新取得平衡，给出明显的平衡指示，保持平衡 5 秒钟以 上；
+（4）电动车在 3 分钟之内完成（1）～（3）全过程。 
+（5）其他。
 */
+#if 1
+int left,mid_l,mid_r,right;
+int states;
+int flag=0;
+float a[10]={0};
+float filPitch=0.00;
+int OUT;
+int KP=10,KI=0,KD=0;
+int temp=0;
 
+int Position_PID(int Encoder , int Target);
 
+void Plan_A()//基础部分 标志位开机为0	往左转1		往右转2		3前4后
+{
+	left =LED_1_out;
+	mid_l=LED_2_out;
+	mid_r=LED_3_out;
+	right=LED_4_out;
+	//printf("left=%d,mid_l=%d,mid_r=%d,right=%d \n",left,mid_l,mid_r,right);
+
+	Read_DMP();
+	//printf ("Pitch=%f \n",Pitch);
+//以上为数据采集
+	for (int i = 0; i < 10; i++)
+	{
+		a[i]=Pitch;
+	}
+	for(int i=0;i<10;i++)
+	{
+		if(a[i]>a[i+1])
+		{
+			temp=a[i];
+            a[i]=a[i+1];
+            a[i+1]=temp;
+		}
+	}
+	filPitch = (a[4]+a[5])/2;
+	//printf ("filPitch=%f \n",filPitch);
+	OUT=Position_PID(filPitch , 0);
+//对角度进行数据处理
+	if((flag==0)&(left==0)&(mid_l==1)&(mid_r==1)&(right==0))
+	{
+		states=3;//直行
+	}
+	if((mid_l==1)&(right==0))//右偏
+	{
+		states=1;//左转
+		flag=1;
+	}
+	if((mid_r==1)&(left==0))//左偏
+	{
+		states=2;//右转
+		flag=2;
+	}
+	
+	switch(states)//电机控制状态
+	{
+		case 1: PWMA_UP(47-20),PWMB_UP(50+20);break;//左转
+		case 2: PWMA_UP(47+20),PWMB_UP(50-20);break;//右转
+		case 3: PWMA_UP(47),PWMB_UP(50);break;//直行
+		case 4: PWMB_STOP(),PWMA_STOP();break;//停车
+		case 5: PWMA_BACK(50);PWMB_BACK(50);break;//倒车
+	}
+//以上为巡线程序
+	if(filPitch> 1 )
+	{
+		if(OUT>100)OUT=100;
+		if(OUT<45)OUT=45;
+		Car_Fore(OUT);
+		flag=3;
+	}
+	if(filPitch< -1 )
+	{
+		OUT=-OUT;
+		if(OUT>100)OUT=100;
+		if(OUT<45)OUT=45;
+		Car_Back(OUT);
+		flag=4;
+	}
+	printf("flag=%d,OUT=%d,filPitch=%f \n",flag,OUT,filPitch);
+}
+#endif
+#if 0
 int left,mid_l,mid_r,right,states;
 int flag=0;
 float a[10]={0};
@@ -151,6 +245,8 @@ B UP 50劲很大 40垃圾的不行 45也不错 BACK 40也不行 45很好
 	}
 #endif
 }
+#endif
+
 
 int Position_PID(int Encoder , int Target)
 {

@@ -64,6 +64,7 @@ void PWMB_BACK(int a);
 void PWMB_STOP(void);
 
 void Car_Fore(int a);
+void Car_Back(int a);
 void Car_Stop(void);
 #endif
 

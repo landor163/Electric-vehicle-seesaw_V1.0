@@ -114,6 +114,12 @@ void Car_Fore(int a)
 	PWMB_UP(a);
 }
 
+void Car_Back(int a)
+{
+	PWMA_BACK(a);
+	PWMB_BACK(a);
+}
+
 void Car_Stop(void)
 {
 	PWMB_STOP();

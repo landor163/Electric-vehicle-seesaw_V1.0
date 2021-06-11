@@ -34,6 +34,8 @@ int main(void)
 	while(1)
 	{
 		Plan_A();
+		//Car_Fore(45);
+		//Car_Back(45);
 	}
 }
 
