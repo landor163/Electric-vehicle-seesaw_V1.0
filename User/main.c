@@ -34,7 +34,7 @@ int main(void)
 	while(1)
 	{
 		data_collection();
-		Line_inspection();
+		//Line_inspection();
 		Overall_process();
 	}
 }
