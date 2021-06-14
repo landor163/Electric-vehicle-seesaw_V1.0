@@ -2,7 +2,9 @@
 #define Control_Flow_H
 
 
-void Plan_A(void);
+void data_collection(void);
+void Line_inspection(void);
+void Overall_process(void);
 
 #endif
 

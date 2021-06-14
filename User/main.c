@@ -33,9 +33,9 @@ int main(void)
 	DMP_Init();	
 	while(1)
 	{
-		Plan_A();
-		//Car_Fore(45);
-		//Car_Back(45);
+		data_collection();
+		Line_inspection();
+		Overall_process();
 	}
 }
 

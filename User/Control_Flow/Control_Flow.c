@@ -27,7 +27,8 @@
 （4）电动车在 3 分钟之内完成（1）～（3）全过程。 
 （5）其他。
 */
-#if 1
+
+
 int left,mid_l,mid_r,right;
 int states;
 int flag=0;
@@ -37,9 +38,11 @@ int OUT;
 int KP=10,KI=0,KD=0;
 int temp=0;
 
+
 int Position_PID(int Encoder , int Target);
 
-void Plan_A()//基础部分 标志位开机为0	往左转1		往右转2		3前4后
+
+void data_collection()//数据采集；简单处理；
 {
 	left =LED_1_out;
 	mid_l=LED_2_out;
@@ -65,12 +68,11 @@ void Plan_A()//基础部分 标志位开机为0	往左转1		往右转2		3前4后
 	}
 	filPitch = (a[4]+a[5])/2;
 	//printf ("filPitch=%f \n",filPitch);
-	OUT=Position_PID(filPitch , 0);
-//对角度进行数据处理
-	if((flag==0)&(left==0)&(mid_l==1)&(mid_r==1)&(right==0))
-	{
-		states=3;//直行
-	}
+}
+
+
+void Line_inspection()//巡线
+{
 	if((mid_l==1)&(right==0))//右偏
 	{
 		states=1;//左转
@@ -90,25 +92,42 @@ void Plan_A()//基础部分 标志位开机为0	往左转1		往右转2		3前4后
 		case 4: PWMB_STOP(),PWMA_STOP();break;//停车
 		case 5: PWMA_BACK(50);PWMB_BACK(50);break;//倒车
 	}
-//以上为巡线程序
-	if(filPitch> 1 )
+}
+
+
+void Overall_process()
+{
+	// if(filPitch> 1 )
+	// {
+	// 	if(OUT>100)OUT=100;
+	// 	if(OUT<45)OUT=45;
+	// 	Car_Fore(OUT);
+	// 	flag=3;
+	// }
+	// if(filPitch< -1 )
+	// {
+	// 	OUT=-OUT;
+	// 	if(OUT>100)OUT=100;
+	// 	if(OUT<45)OUT=45;
+	// 	Car_Back(OUT);
+	// 	flag=4;
+	// }
+
+	// if(filPitch==0)
+	// {
+	// 	states=4;//读数为0直接停车
+	// }
+
+	OUT=Position_PID(filPitch , 0);
+
+	if((flag==0)&(left==0)&(mid_l==1)&(mid_r==1)&(right==0))
 	{
-		if(OUT>100)OUT=100;
-		if(OUT<45)OUT=45;
-		Car_Fore(OUT);
-		flag=3;
-	}
-	if(filPitch< -1 )
-	{
-		OUT=-OUT;
-		if(OUT>100)OUT=100;
-		if(OUT<45)OUT=45;
-		Car_Back(OUT);
-		flag=4;
+		states=3;//直行
 	}
 	printf("flag=%d,OUT=%d,filPitch=%f \n",flag,OUT,filPitch);
 }
-#endif
+
+
 #if 0
 int left,mid_l,mid_r,right,states;
 int flag=0;
