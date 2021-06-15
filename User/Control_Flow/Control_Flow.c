@@ -83,26 +83,35 @@ void Line_inspection()//巡线
 		states=2;//右转
 		flag=2;
 	}
+
+	switch(states)//电机控制状态
+	{
+		case 1: PWMA_UP(47-20),PWMB_UP(50+20);break;//左转
+		case 2: PWMA_UP(47+20),PWMB_UP(50-20);break;//右转
+		case 3: PWMA_UP(47),PWMB_UP(50);break;//直行
+		case 4: PWMB_STOP(),PWMA_STOP();break;//停车
+		case 5: PWMA_BACK(50);PWMB_BACK(50);break;//倒车
+	}
 }
 
 
 void Overall_process()
 {
-	// if(filPitch> 1 )
-	// {
-	// 	if(OUT>100)OUT=100;
-	// 	if(OUT<45)OUT=45;
-	// 	Car_Fore(OUT);
-	// 	flag=3;
-	// }
-	// if(filPitch< -1 )
-	// {
-	// 	OUT=-OUT;
-	// 	if(OUT>100)OUT=100;
-	// 	if(OUT<45)OUT=45;
-	// 	Car_Back(OUT);
-	// 	flag=4;
-	// }
+	if(filPitch> 1 )
+	{
+		if(OUT>100)OUT=100;
+		if(OUT<45)OUT=45;
+		Car_Fore(OUT);
+		flag=3;
+	}
+	if(filPitch< -1 )
+	{
+		OUT=-OUT;
+		if(OUT>100)OUT=100;
+		if(OUT<45)OUT=45;
+		Car_Back(OUT);
+		flag=4;
+	}
 
 	// if(filPitch==0)
 	// {
@@ -117,21 +126,14 @@ void Overall_process()
 	// }
 	// printf("flag=%d,OUT=%d,filPitch=%f \n",flag,OUT,filPitch);
 
-	states=3;
-	delay_ms(1000);
-	states=4;
-	delay_ms(4000);
-	states=3;
-	delay_ms(1000);
+	// states=3;
+	// delay_ms(1000);
+	// states=4;
+	// delay_ms(4000);
+	// states=3;
+	// delay_ms(1000);
 	
-	switch(states)//电机控制状态
-	{
-		case 1: PWMA_UP(47-20),PWMB_UP(50+20);break;//左转
-		case 2: PWMA_UP(47+20),PWMB_UP(50-20);break;//右转
-		case 3: PWMA_UP(47),PWMB_UP(50);break;//直行
-		case 4: PWMB_STOP(),PWMA_STOP();break;//停车
-		case 5: PWMA_BACK(50);PWMB_BACK(50);break;//倒车
-	}
+
 }
 
 
