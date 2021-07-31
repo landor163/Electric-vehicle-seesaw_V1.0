@@ -2,7 +2,7 @@
 ..\output\tb6612.o: ..\User\TB6612\TB6612.h
 ..\output\tb6612.o: ..\Libraries\CMSIS\stm32f10x.h
 ..\output\tb6612.o: ..\Libraries\CMSIS\core_cm3.h
-..\output\tb6612.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\stdint.h
+..\output\tb6612.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\stdint.h
 ..\output\tb6612.o: ..\Libraries\CMSIS\system_stm32f10x.h
 ..\output\tb6612.o: ..\User\stm32f10x_conf.h
 ..\output\tb6612.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h

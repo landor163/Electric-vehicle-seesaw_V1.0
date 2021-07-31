@@ -3,7 +3,7 @@
 ..\output\mpu6050.o: ..\User\System\System.h
 ..\output\mpu6050.o: ..\Libraries\CMSIS\stm32f10x.h
 ..\output\mpu6050.o: ..\Libraries\CMSIS\core_cm3.h
-..\output\mpu6050.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\stdint.h
+..\output\mpu6050.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\stdint.h
 ..\output\mpu6050.o: ..\Libraries\CMSIS\system_stm32f10x.h
 ..\output\mpu6050.o: ..\User\stm32f10x_conf.h
 ..\output\mpu6050.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h
@@ -33,7 +33,7 @@
 ..\output\mpu6050.o: ..\User\Delay\Delay.h
 ..\output\mpu6050.o: ..\User\System\System.h
 ..\output\mpu6050.o: ..\User\Usart\bsp_usart.h
-..\output\mpu6050.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\stdio.h
+..\output\mpu6050.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\stdio.h
 ..\output\mpu6050.o: ..\User\TIMER\timer.h
 ..\output\mpu6050.o: ..\User\IIC\IIC.h
 ..\output\mpu6050.o: ..\User\MPU6050\mpu6050.h
@@ -41,6 +41,6 @@
 ..\output\mpu6050.o: ..\User\DMP\inv_mpu_dmp_motion_driver.h
 ..\output\mpu6050.o: ..\User\DMP\dmpKey.h
 ..\output\mpu6050.o: ..\User\DMP\dmpmap.h
-..\output\mpu6050.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\string.h
-..\output\mpu6050.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\stdlib.h
-..\output\mpu6050.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\math.h
+..\output\mpu6050.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\string.h
+..\output\mpu6050.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\stdlib.h
+..\output\mpu6050.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\math.h

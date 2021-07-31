@@ -1,7 +1,7 @@
 ..\output\buzzer.o: ..\User\Buzzer\Buzzer.c
 ..\output\buzzer.o: ..\Libraries\CMSIS\stm32f10x.h
 ..\output\buzzer.o: ..\Libraries\CMSIS\core_cm3.h
-..\output\buzzer.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\stdint.h
+..\output\buzzer.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\stdint.h
 ..\output\buzzer.o: ..\Libraries\CMSIS\system_stm32f10x.h
 ..\output\buzzer.o: ..\User\stm32f10x_conf.h
 ..\output\buzzer.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h
@@ -33,7 +33,7 @@
 ..\output\buzzer.o: ..\User\System\System.h
 ..\output\buzzer.o: ..\User\Delay\Delay.h
 ..\output\buzzer.o: ..\User\Usart\bsp_usart.h
-..\output\buzzer.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\stdio.h
+..\output\buzzer.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\stdio.h
 ..\output\buzzer.o: ..\User\TIMER\timer.h
 ..\output\buzzer.o: ..\User\System\System.h
 ..\output\buzzer.o: ..\User\IIC\IIC.h
@@ -42,6 +42,6 @@
 ..\output\buzzer.o: ..\User\DMP\inv_mpu_dmp_motion_driver.h
 ..\output\buzzer.o: ..\User\DMP\dmpKey.h
 ..\output\buzzer.o: ..\User\DMP\dmpmap.h
-..\output\buzzer.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\string.h
-..\output\buzzer.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\stdlib.h
-..\output\buzzer.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\math.h
+..\output\buzzer.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\string.h
+..\output\buzzer.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\stdlib.h
+..\output\buzzer.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\math.h

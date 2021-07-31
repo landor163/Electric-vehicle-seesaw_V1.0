@@ -1,7 +1,7 @@
 ..\output\main.o: ..\User\main.c
 ..\output\main.o: ..\User\stm32f10x.h
 ..\output\main.o: ..\Libraries\CMSIS\core_cm3.h
-..\output\main.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\stdint.h
+..\output\main.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\stdint.h
 ..\output\main.o: ..\Libraries\CMSIS\system_stm32f10x.h
 ..\output\main.o: ..\User\stm32f10x_conf.h
 ..\output\main.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h
@@ -31,7 +31,7 @@
 ..\output\main.o: ..\User\TB6612\TB6612.h
 ..\output\main.o: ..\User\GeneralTim_3\bsp_GeneralTim_3.h
 ..\output\main.o: ..\User\Usart\bsp_usart.h
-..\output\main.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\stdio.h
+..\output\main.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\stdio.h
 ..\output\main.o: ..\User\System\System.h
 ..\output\main.o: ..\User\Delay\Delay.h
 ..\output\main.o: ..\User\System\System.h
@@ -42,9 +42,9 @@
 ..\output\main.o: ..\User\DMP\inv_mpu_dmp_motion_driver.h
 ..\output\main.o: ..\User\DMP\dmpKey.h
 ..\output\main.o: ..\User\DMP\dmpmap.h
-..\output\main.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\string.h
-..\output\main.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\stdlib.h
-..\output\main.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\math.h
+..\output\main.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\string.h
+..\output\main.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\stdlib.h
+..\output\main.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\math.h
 ..\output\main.o: ..\User\Balance\Balance.h
 ..\output\main.o: ..\User\Buzzer\Buzzer.h
 ..\output\main.o: ..\User\Find_Num\bsp_Find_Num.h

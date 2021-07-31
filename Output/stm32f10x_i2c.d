@@ -2,7 +2,7 @@
 ..\output\stm32f10x_i2c.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_i2c.h
 ..\output\stm32f10x_i2c.o: ..\Libraries\CMSIS\stm32f10x.h
 ..\output\stm32f10x_i2c.o: ..\Libraries\CMSIS\core_cm3.h
-..\output\stm32f10x_i2c.o: D:\017_Keil_MDK-ARM_V5.26\ARM\ARMCC\Bin\..\include\stdint.h
+..\output\stm32f10x_i2c.o: C:\003_Professional Software\002_Keil MDK-ARM\ARM\ARMCC\Bin\..\include\stdint.h
 ..\output\stm32f10x_i2c.o: ..\Libraries\CMSIS\system_stm32f10x.h
 ..\output\stm32f10x_i2c.o: ..\User\stm32f10x_conf.h
 ..\output\stm32f10x_i2c.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h
